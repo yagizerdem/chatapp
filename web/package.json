@@ -1,0 +1,31 @@
+{
+  "name": "telegram",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx parcel src/index.html",
+    "start-talwind": "npx tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-inline-string": "^2.13.2",
+    "buffer": "^6.0.3",
+    "parcel": "^2.13.2",
+    "process": "^0.11.10",
+    "tailwindcss": "^3.4.15"
+  },
+  "dependencies": {
+    "@parcel/transformer-html": "^2.13.2",
+    "@parcel/transformer-js": "^2.13.2",
+    "axios": "^1.7.8",
+    "jquery": "^3.7.1",
+    "jwt-decode": "^4.0.0",
+    "knockout": "^3.5.1",
+    "pagerjs": "^1.1.0",
+    "socket.io-client": "^4.8.1",
+    "toastify-js": "^1.12.0"
+  },
+  "description": ""
+}

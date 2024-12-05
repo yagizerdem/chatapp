@@ -1,0 +1,99 @@
+<script type="text/html" id="register-view">
+  <div
+    class="h-screen w-screen bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center"
+  >
+    <div
+      class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    >
+      <form
+        data-bind="submit: onRegister , visible:!isLoading()"
+        id="registerForm"
+      >
+        <h5
+          class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+        >
+          Register
+        </h5>
+        <hr />
+        <label class="block mt-4">first name</label>
+        <input
+          type="text"
+          placeholder="enter first name"
+          class="mt-2"
+          name="firstName"
+          data-bin="textInput: firstName"
+        />
+
+        <label class="block mt-4">last name</label>
+        <input
+          type="text"
+          placeholder="enter last name"
+          class="mt-2"
+          name="lastName"
+          data-bin="textInput: lastName"
+        />
+        <label class="block mt-4">email</label>
+        <input
+          type="text"
+          placeholder="enter email"
+          class="mt-2"
+          name="email"
+          data-bin="textInput: email"
+        />
+        <label class="block mt-4">password</label>
+        <input
+          type="text"
+          placeholder="enter password"
+          class="mt-2"
+          name="password"
+          data-bin="textInput: password"
+        />
+        <button
+          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          <span>Register</span>
+          <svg
+            class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 10"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 5h12m0 0L9 1m4 4L9 9"
+            />
+          </svg>
+        </button>
+        <a href="#login" class="text-blue-500  block mt-5">
+          log in if you already have account
+        </a>
+      </form>
+      <div id="spinner" class="loader" data-bind="visible:isLoading()"></div>
+    </div>
+  </div>
+  <style>
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 5px solid blue;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</script>

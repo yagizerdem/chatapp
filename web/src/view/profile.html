@@ -1,0 +1,141 @@
+<script type="text/html" id="profile-view">
+  <!-- nav bar  -->
+  <nav
+    class="navbar navbar-expand-sm bg-body-tertiary"
+    style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"
+  >
+    <div class="container-fluid">
+      <a
+        class="navbar-brand"
+        style="color: #7CB9E8; cursor: pointer; "
+        href="#home"
+        >Home</a
+      >
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              aria-current="page"
+              style="cursor:pointer"
+              href="#contactrequestlist"
+              ><b>Contacts</b></a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              aria-current="page"
+              style="cursor:pointer ; color: #fd5c63;"
+              data-bind="click: logout"
+              >LogOut</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- section end -->
+  <div class=" h-screen bg-gray-100">
+    <div class="w-1/2 mx-auto p-4 bg-red-500">
+      <img
+        src="https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg"
+        class="w-16  h-16 mx-auto mb-4 rounded-lg   overflow-hidden"
+        width="200"
+        height="200"
+        data-bind="visible : !hasProfileImage()"
+      />
+
+      <img
+        class="w-16  h-16 mx-auto mb-4 rounded-lg   overflow-hidden"
+        width="200"
+        height="200"
+        data-bind="attr: { src: profileBase64 }, visible: hasProfileImage"
+      />
+
+      <input
+        type="text"
+        disabled
+        data-bind="value: firstName"
+        class="w-full p-2 mb-2 border rounded"
+      />
+      <input
+        type="text"
+        disabled
+        data-bind="value: lastName"
+        class="w-full p-2 mb-2 border rounded"
+      />
+      <input
+        type="text"
+        disabled
+        data-bind="value: email"
+        class="w-full p-2 mb-2 border rounded"
+      />
+      <br />
+      <h4>bigoraphy :</h4>
+      <hr />
+      <textarea
+        disabled
+        data-bind="value : biography"
+        style="width: 100%;  display: block; height: 300px;"
+      ></textarea>
+      <br />
+      <h4>address :</h4>
+      <hr />
+      <textarea
+        disabled
+        data-bind="value : address"
+        style="width:40%; display: block; height: 100px;"
+      >
+      </textarea>
+      <h3>update :</h3>
+      <form
+        class="mt-4"
+        data-bind="submit:onUpdate"
+        id="updateForm"
+        enctype="multipart/form-data"
+      >
+        <textarea
+          placeholder="Enter biography"
+          class="w-full p-2 mb-2 border rounded"
+          data-bind="value : biography"
+          style="width: 100%;  display: block; height: 300px;"
+          name="biography"
+        ></textarea>
+        <textarea
+          placeholder="Enter address"
+          class="w-full p-2 mb-2 border rounded"
+          data-bind="value : address"
+          style="width:40%; display: block; height: 100px;"
+          name="address"
+        ></textarea>
+        <input
+          type="file"
+          accept="image/*"
+          placeholder="select profile image"
+          name="profileImage"
+        />
+        <button
+          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          <span>Update</span>
+          <svg
+            class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 10"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 5h12m0 0L9 1m4 4L9 9"
+            />
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</script>

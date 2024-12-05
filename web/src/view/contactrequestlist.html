@@ -1,0 +1,79 @@
+<script type="text/html" id="contactrequestlist-view">
+  <nav
+    class="navbar navbar-expand-sm bg-body-tertiary"
+    style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"
+  >
+    <div class="container-fluid">
+      <a
+        class="navbar-brand"
+        style="color: #7CB9E8; cursor: pointer; "
+        href="#profile"
+        >Profile</a
+      >
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              aria-current="page"
+              style="cursor:pointer"
+              href="#contactrequestlist"
+              ><b>Contacts</b></a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              aria-current="page"
+              style="cursor:pointer ; color: #fd5c63;"
+              data-bind="click: logout"
+              >LogOut</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <ul data-bind="foreach: data">
+      <li>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              <span data-bind="text: firstName"></span>
+              <span data-bind="text: lastName"></span>
+            </h5>
+            <p class="card-text" data-bind="text: email"></p>
+            <img
+              data-bind="attr: { src: base64profile }"
+              alt="Profile Picture"
+              class="card-img-top"
+              style="width:200px;"
+            />
+            <span data-bind="text: createdAd"></span>
+            <br />
+            <br />
+            <button
+              type="button"
+              class="btn btn-success"
+              data-bind="click:()=>$parent.accept($data.id)"
+            >
+              Accept
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bind="click:()=>$parent.reject($data.id)"
+            >
+              Reject
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <button type="button" class="btn btn-primary" data-bind="click :onLoadMore">
+      load contact requests
+    </button>
+  </div>
+</script>

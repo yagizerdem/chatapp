@@ -1,0 +1,293 @@
+<script type="text/html" id="home-view">
+  <div id="container">
+    <!-- nav bar  -->
+    <nav
+      class="navbar navbar-expand-sm bg-body-tertiary"
+      style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"
+    >
+      <div class="container-fluid">
+        <a
+          class="navbar-brand"
+          style="color: #7CB9E8; cursor: pointer; "
+          href="#profile"
+          >Profile</a
+        >
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                style="cursor:pointer"
+                href="#contactrequestlist"
+                ><b>Contacts</b></a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                style="cursor:pointer ; color: #fd5c63;"
+                data-bind="click: logout"
+                >LogOut</a
+              >
+            </li>
+          </ul>
+          <div style="position: relative;">
+            <form class="d-flex" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                data-bind="textInput: searchUserInput"
+              />
+              <button
+                class="btn btn-outline-success"
+                type="submit"
+                data-bind="click: searchByUserName"
+              >
+                Search
+              </button>
+            </form>
+            <div id="searcUserPopUp">
+              <button
+                id="loadMore"
+                data-bind="visible :searchedUserProfiles().length > 0  , click:onLoadMoreUserProfile"
+              >
+                load more
+              </button>
+              <br />
+              <br />
+              <ul data-bind="foreach: searchedUserProfiles">
+                <li
+                  data-bind="click:()=> $parent.goToOtherProfile($data.id)"
+                  style="cursor: pointer;"
+                >
+                  <img
+                    data-bind="attr: { src: $data.profileBase64 }"
+                    alt="Profile Image"
+                    id="p-image"
+                    class="w-[100px] h-[100px] rounded border border-gray-300"
+                  />
+                  <div>
+                    <span data-bind="text : $data.firstName"></span>
+                    <span data-bind="text : $data.lastName"></span>
+                  </div>
+                  <p data-bind="text: $data.email"></p>
+                  <hr />
+                </li>
+              </ul>
+            </div>
+            <style>
+              #searcUserPopUp {
+                position: absolute;
+                width: 100%;
+                height: 400px;
+                margin-top: 10px;
+                margin-right: 10px;
+                background-color: #f2f2f2;
+                border-radius: 10px;
+                box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+                  rgba(0, 0, 0, 0.12) 0px -12px 30px,
+                  rgba(0, 0, 0, 0.12) 0px 4px 6px,
+                  rgba(0, 0, 0, 0.17) 0px 12px 13px,
+                  rgba(0, 0, 0, 0.09) 0px -3px 5px;
+                display: none;
+                overflow-y: scroll;
+              }
+              #searcUserPopUp > li {
+                display: block;
+                width: 80%;
+                margin-top: 10px;
+              }
+              #searcUserPopUp > #p-image {
+                width: 100px;
+                margin: auto;
+                display: block;
+              }
+              #searcUserPopUp > li > div,
+              #searcUserPopUp > li > p {
+                margin: auto;
+                display: block;
+                text-align: center;
+              }
+              #searcUserPopUp > #loadMore {
+                display: block;
+                margin: auto;
+                color: #7cb9e8;
+              }
+            </style>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- section end -->
+
+    <div id="home-body">
+      <!-- Contacts Section: 30% width -->
+      <div id="contacts">
+        <h2 class="text-xl font-bold">Contacts</h2>
+        <!-- bind to app view model contact list -->
+        <ul data-bind="foreach: $parent.contactList">
+          <li class="w-full">
+            <a
+              class="block w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+              data-bind="click:()=>$parent.selectContactProfile($data.id)"
+            >
+              <img
+                data-bind="attr: { src: $data.profileBase64 }"
+                id="profileImage"
+              />
+              <h5
+                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+              >
+                <span data-bind="text:$data.firstName"></span>
+                <span data-bind="text:$data.lastName"></span>
+              </h5>
+            </a>
+            <hr />
+          </li>
+        </ul>
+        <!-- Contacts content goes here -->
+      </div>
+
+      <!-- Chat Section: 70% width -->
+      <div id="chat" class="w-2/3 bg-gray-100 p-4">
+        <h2 class="text-xl font-bold">
+          Chat
+          <span
+            data-bind="text:activContactProfile().firstName"
+            style="font-weight: bold; font-size: 20px; color: white; margin-left: 30px;"
+          ></span>
+          <span
+            data-bind="text:activContactProfile().lastName"
+            style="font-weight: bold; font-size: 20px; color: white;"
+          ></span>
+        </h2>
+
+        <!-- Chat content goes here -->
+
+        <div
+          data-bind="visible:!activContactProfile()"
+          class="select-profile-to-startchat"
+        >
+          select profil to start chat
+        </div>
+
+        <div
+          data-bind="visible:activContactProfile()"
+          style="height: 100%;display: flex; flex-direction: column;"
+        >
+          <div id="panel">
+            <ul data-bind="foreach:messages">
+              <li>
+                <div data-bind="text: $data"></div>
+              </li>
+            </ul>
+          </div>
+          <footer>
+            <input type="text" id="chatInput" placeholder="you can chat" />
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bind="click:$data.sendChat"
+            >
+              Send chat
+            </button>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+
+<style>
+  #chat {
+    width: 100%;
+  }
+  #panel {
+    flex-grow: 1; /* Makes #panel take the remaining space above footer */
+    overflow-y: auto; /* Enables scrolling if content exceeds height */
+    background-color: #ffffff75;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    height: calc(100% - 100px);
+  }
+  footer {
+    height: 60px;
+    display: flex; /* Align input and button horizontally */
+    gap: 8px; /* Space between input and button */
+    padding: 8px;
+    border-top: 1px solid #dddddd65;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  footer input {
+    flex-grow: 1;
+    height: 35px;
+    border-radius: 4px;
+    padding: 7px;
+  }
+  footer button {
+    height: 40px;
+  }
+</style>
+
+<style>
+  #container {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    height: 100vh; /* Full height of the viewport */
+  }
+  #home-body {
+    flex: 1; /* Take up all remaining space */
+    background: url("../assets/background.jpg");
+    display: flex;
+    flex-grow: 1; /* Take up remaining height */
+    overflow: hidden;
+  }
+  #contacts {
+    width: 30%; /* 30% width of parent container */
+    min-width: 300px; /* Minimum width for smaller screens */
+    background-color: rgba(255, 255, 255, 0.61);
+    overflow-y: auto; /* Enable vertical scrolling for overflowing content */
+    padding: 10px;
+  }
+
+  #container ul {
+    padding: 0;
+  }
+  #container ul li {
+    display: block;
+    width: 100%;
+  }
+  #profileImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: auto;
+    display: block;
+  }
+  #container ul li a {
+    padding: 5px;
+    cursor: pointer;
+  }
+  #profileImage ~ h5 {
+    display: block;
+    text-align: center;
+  }
+  .select-profile-to-startchat {
+    width: 100%;
+    height: 90%;
+    background: rgba(255, 255, 255, 0.418);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bolder;
+    font-size: 20px;
+  }
+</style>
